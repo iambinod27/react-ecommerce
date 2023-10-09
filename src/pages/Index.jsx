@@ -1,33 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import eAxios from "../axios/axios";
+import Card from "../components/Card";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const Index = () => {
-  // const [items, setItem] = useState([]);
-
-  // const fetchItem = async () => {
-  //   try {
-  //     const res = await eAxios.get("/products");
-  //     const data = await res.data;
-  //     setItem(data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchItem();
-  // }, []);
-
-  const { isloading } = useSelector((state) => state.items);
-
-  console.log(isloading);
+  const { products } = useSelector((state) => state.products);
 
   return (
-    <div>
-      {/* {items.map((item) => (
-        <h2 key={item.id}>{item.title}</h2>
-      ))} */}
+    <div className="grid grid-cols-1 sm:max-w-md sm:mx-auto md:max-w-full md:grid-cols-2 lg:grid-cols-3 gap-[20px ] md:gap-[25px] xl:gap-[50px] my-[50px] md:my-[100px]">
+      {products.map((item) => (
+        <Card item={item} key={item.id} />
+      ))}
     </div>
   );
 };
