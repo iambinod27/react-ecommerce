@@ -1,29 +1,28 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllItems } from "../../actions/items/itemsAction";
+import { getAllItems } from "../../actions/items/itemsActions";
 
 const initialState = {
   isLoading: true,
   items: [],
 };
 
-const itemState = createSlice({
-  name: "items",
+const productSlice = createSlice({
+  name: "product",
   initialState,
   reducers: {},
-  extraReducers: {
-    [getAllItems.pending]: (state) => {
-      state.isLoading = true;
-    },
-
-    [getAllItems.fulfilled]: (state, { payload }) => {
-      state.isLoading = false;
-      state.items = [...payload];
-    },
-
-    [getAllItems.rejected]: (state) => {
-      state.isLoading = true;
-    },
+  extraReducers: (builder) => {
+    builder
+      .addCase(getAllItems.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getAllItems.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.item = payload;
+      })
+      .addCase(getAllItems.rejected, (state, action) => {
+        state.isLoading = true;
+      });
   },
 });
 
-export default itemState.reducer;
+export default productSlice.reducer;
